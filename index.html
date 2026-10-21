@@ -228,6 +228,7 @@
   @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
 
   @media (max-width: 980px) {
+    .nav-links { gap: 14px; }
     .hero-grid { grid-template-columns: 1fr; }
     .hero-card { max-width: 460px; }
     .products-grid { grid-template-columns: repeat(2,1fr); }
@@ -240,6 +241,19 @@
   }
   @media (max-width: 640px) {
     .nav-links a:not(.nav-cta) { display: none; }
+    .nav-inner { padding: 0 12px; gap: 8px; }
+    .logo { gap: 6px; min-width: 0; }
+    .logo img.logo-mark { height: 34px !important; }
+    .logo-text strong { font-size: 14px; letter-spacing: 0; white-space: nowrap; }
+    .logo-text span { font-size: 9px; white-space: nowrap; }
+    .lang-switcher { flex-shrink: 0; }
+    .lang-btn { padding: 2px 6px; font-size: 11px; }
+    .nav-cta { padding: 7px 10px; font-size: 12px; white-space: nowrap; flex-shrink: 0; }
+    .hero-stats { gap: 16px; justify-content: space-between; }
+    .hero-stat strong { font-size: 22px; }
+    .hero-stat span { font-size: 11px; }
+    .floating-cta { bottom: 12px; right: 12px; }
+    .float-btn { padding: 10px 14px; font-size: 13px; }
     section { padding: 56px 0; }
     .products-grid { grid-template-columns: 1fr; }
     .why-list { grid-template-columns: 1fr; }
@@ -266,6 +280,7 @@
       <a href="#applications" data-i18n="nav_apps">Ứng Dụng</a>
       <a href="#why" data-i18n="nav_why">Lợi Thế</a>
       <a href="#process" data-i18n="nav_process">Quy Trình</a>
+      <a href="#cert" data-i18n="nav_cert">Chứng Nhận Chất Lượng</a>
       <a href="#contact" data-i18n="nav_contact">Liên Hệ</a>
       <div class="lang-switcher">
         <button class="lang-btn" data-lang="vi">VI</button>
@@ -538,7 +553,7 @@
 
 <div class="floating-cta">
   <a href="tel:02223634016" class="float-btn" data-i18n="float_call">📞 Gọi Ngay</a>
-  <a href="#" class="float-btn zalo">💬 Zalo</a>
+  <a href="https://zalo.me/0976182802" target="_blank" rel="noopener" class="float-btn zalo">💬 Zalo</a>
 </div>
 
 <script>
@@ -546,7 +561,7 @@
 const I18N = {
 vi: {
   page_title: "CHIH MING – Nhà Sản Xuất Hạt Nhựa Filler Masterbatch CaCO₃",
-  nav_products: "Sản Phẩm", nav_apps: "Ứng Dụng", nav_why: "Lợi Thế", nav_process: "Quy Trình", nav_contact: "Liên Hệ", nav_cta: "Báo Giá Ngay",
+  nav_products: "Sản Phẩm", nav_apps: "Ứng Dụng", nav_why: "Lợi Thế", nav_process: "Quy Trình", nav_cert: "Chứng Nhận", nav_contact: "Liên Hệ", nav_cta: "Báo Giá Ngay",
   hero_badge: "Nhà sản xuất trực tiếp · <b>KCN Quế Võ, Bắc Ninh</b>",
   hero_h1: "Hạt Filler Masterbatch <em>CaCO₃</em> cho màng PE/PP",
   hero_desc: "Giảm 15–30% chi phí nguyên liệu, giữ nguyên chất lượng sản phẩm. Phối trộn bằng máy trộn kín (Banbury) — công nghệ cho độ đồng đều tốt nhất ngành nhựa. Mỗi lô hàng kèm phiếu kiểm nghiệm CoA.",
@@ -598,7 +613,7 @@ vi: {
 },
 zh: {
   page_title: "CHIH MING – 越南碳酸鈣（CaCO₃）填充母粒製造商",
-  nav_products: "產品", nav_apps: "應用", nav_why: "優勢", nav_process: "製程", nav_contact: "聯絡我們", nav_cta: "立即詢價",
+  nav_products: "產品", nav_apps: "應用", nav_why: "優勢", nav_process: "製程", nav_cert: "品質認證", nav_contact: "聯絡我們", nav_cta: "立即詢價",
   hero_badge: "工廠直營 · <b>北寧省桂武工業區</b>",
   hero_h1: "PE/PP 薄膜與射出專用 <em>CaCO₃ 填充母粒</em>",
   hero_desc: "降低 15–30% 原料成本，維持產品品質。採用密煉機（Banbury）混煉——塑膠業混合均勻度最佳的製程，每批出貨均附檢驗報告 CoA。",
@@ -650,7 +665,7 @@ zh: {
 },
 en: {
   page_title: "CHIH MING – CaCO₃ Filler Masterbatch Manufacturer in Vietnam",
-  nav_products: "Products", nav_apps: "Applications", nav_why: "Advantages", nav_process: "Process", nav_contact: "Contact", nav_cta: "Get a Quote",
+  nav_products: "Products", nav_apps: "Applications", nav_why: "Advantages", nav_process: "Process", nav_cert: "Quality", nav_contact: "Contact", nav_cta: "Get a Quote",
   hero_badge: "Direct manufacturer · <b>Que Vo IP, Bac Ninh</b>",
   hero_h1: "<em>CaCO₃</em> Filler Masterbatch for PE/PP Films",
   hero_desc: "Cut 15–30% of resin costs while keeping product quality. Compounded in an internal mixer (Banbury) — the most homogeneous mixing process in the plastics industry. Every batch shipped with a CoA.",
