@@ -181,6 +181,20 @@
   .kpi strong i { font-style: normal; color: #6fcfae; }
   .kpi span { font-size: 13px; color: rgba(255,255,255,0.6); display: block; margin-top: 8px; }
 
+  /* ── 行業時事：自動更新 ── */
+  .news-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .news-card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 22px; display: flex; flex-direction: column; gap: 10px; transition: box-shadow .2s, transform .2s;
+  }
+  .news-card:hover { box-shadow: 0 8px 28px rgba(14,59,51,0.10); transform: translateY(-3px); }
+  .news-src { font-size: 11.5px; font-weight: 700; color: var(--accent); letter-spacing: 0.5px; text-transform: uppercase; }
+  .news-title { font-size: 14.5px; font-weight: 700; color: var(--ink); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .news-desc { font-size: 13px; color: var(--ink-soft); line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .news-date { font-size: 12px; color: var(--ink-soft); opacity: 0.75; margin-top: auto; }
+  .news-loading { font-size: 14px; color: var(--ink-soft); padding: 30px 0; text-align: center; }
+  @media (max-width: 980px) { .news-grid { grid-template-columns: 1fr; } }
+
   /* ── 聯絡：淺底 + 白表單卡 ── */
   .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 56px; align-items: start; }
   .contact-info h2 { font-size: 30px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 12px; }
@@ -287,6 +301,7 @@
       <a href="#why" data-i18n="nav_why">Lợi Thế</a>
       <a href="#process" data-i18n="nav_process">Quy Trình</a>
       <a href="#cert" data-i18n="nav_cert">Chứng Nhận Chất Lượng</a>
+      <a href="#news" data-i18n="nav_news">Tin Ngành</a>
       <a href="#contact" data-i18n="nav_contact">Liên Hệ</a>
       <div class="lang-switcher">
         <button class="lang-btn" data-lang="vi">VI</button>
@@ -498,6 +513,19 @@
 </section>
 
 <!-- CONTACT -->
+<section id="news">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="sec-kicker" data-i18n="k_news">Tin Ngành</span>
+      <h2 class="sec-title" data-i18n="news_title">Tin tức ngành nhựa mới nhất</h2>
+      <p class="sec-sub" data-i18n="news_sub">Tin thị trường nhựa & polymer toàn cầu — tự động cập nhật.</p>
+    </div>
+    <div class="news-grid reveal" id="news-grid">
+      <div class="news-loading" data-i18n="news_loading">Đang tải tin tức...</div>
+    </div>
+  </div>
+</section>
+
 <section id="contact" class="alt">
   <div class="container contact-grid">
     <div class="contact-info reveal">
@@ -585,7 +613,8 @@
 const I18N = {
 vi: {
   page_title: "CHIH MING – Nhà Sản Xuất Hạt Nhựa Filler Masterbatch CaCO₃",
-  nav_products: "Sản Phẩm", nav_apps: "Ứng Dụng", nav_why: "Lợi Thế", nav_process: "Quy Trình", nav_cert: "Chứng Nhận", nav_contact: "Liên Hệ", nav_cta: "Báo Giá Ngay",
+  nav_products: "Sản Phẩm", nav_apps: "Ứng Dụng", nav_why: "Lợi Thế", nav_process: "Quy Trình", nav_cert: "Chứng Nhận", nav_news: "Tin Ngành", nav_contact: "Liên Hệ", nav_cta: "Báo Giá Ngay",
+  k_news: "Tin Ngành", news_title: "Tin tức ngành nhựa mới nhất", news_sub: "Tin thị trường nhựa & polymer toàn cầu — tự động cập nhật.", news_loading: "Đang tải tin tức...",
   hero_badge: "Nhà sản xuất trực tiếp · <b>KCN Quế Võ, Bắc Ninh</b>",
   hero_h1: "Hạt Filler Masterbatch <em>CaCO₃</em> cho màng PE/PP",
   hero_desc: "Giảm 15–30% chi phí nguyên liệu, giữ nguyên chất lượng sản phẩm. Phối trộn bằng máy trộn kín (Banbury) — công nghệ cho độ đồng đều tốt nhất ngành nhựa. Mỗi lô hàng kèm phiếu kiểm nghiệm CoA.",
@@ -637,7 +666,8 @@ vi: {
 },
 zh: {
   page_title: "CHIH MING – 越南碳酸鈣（CaCO₃）填充母粒製造商",
-  nav_products: "產品", nav_apps: "應用", nav_why: "優勢", nav_process: "製程", nav_cert: "品質認證", nav_contact: "聯絡我們", nav_cta: "立即詢價",
+  nav_products: "產品", nav_apps: "應用", nav_why: "優勢", nav_process: "製程", nav_cert: "品質認證", nav_news: "行業時事", nav_contact: "聯絡我們", nav_cta: "立即詢價",
+  k_news: "行業時事", news_title: "塑料行業最新時事", news_sub: "全球塑料與聚合物市場動態——自動更新。", news_loading: "正在載入新聞...",
   hero_badge: "工廠直營 · <b>北寧省桂武工業區</b>",
   hero_h1: "PE/PP 薄膜與射出專用 <em>CaCO₃ 填充母粒</em>",
   hero_desc: "降低 15–30% 原料成本，維持產品品質。採用密煉機（Banbury）混煉——塑膠業混合均勻度最佳的製程，每批出貨均附檢驗報告 CoA。",
@@ -689,7 +719,8 @@ zh: {
 },
 en: {
   page_title: "CHIH MING – CaCO₃ Filler Masterbatch Manufacturer in Vietnam",
-  nav_products: "Products", nav_apps: "Applications", nav_why: "Advantages", nav_process: "Process", nav_cert: "Quality", nav_contact: "Contact", nav_cta: "Get a Quote",
+  nav_products: "Products", nav_apps: "Applications", nav_why: "Advantages", nav_process: "Process", nav_cert: "Quality", nav_news: "News", nav_contact: "Contact", nav_cta: "Get a Quote",
+  k_news: "Industry News", news_title: "Latest Plastics Industry News", news_sub: "Global plastics & polymer market updates — refreshed automatically.", news_loading: "Loading news...",
   hero_badge: "Direct manufacturer · <b>Que Vo IP, Bac Ninh</b>",
   hero_h1: "<em>CaCO₃</em> Filler Masterbatch for PE/PP Films",
   hero_desc: "Cut 15–30% of resin costs while keeping product quality. Compounded in an internal mixer (Banbury) — the most homogeneous mixing process in the plastics industry. Every batch shipped with a CoA.",
@@ -787,6 +818,46 @@ document.querySelector('.btn-submit').addEventListener('click', (e) => {
   const dict = I18N[window.__cmLang || 'vi'];
   alert(dict.alert_msg);
 });
+
+// ── 行業時事自動更新（news.json 由 GitHub Action 每日更新） ──
+function renderNews(data) {
+  const grid = document.getElementById("news-grid");
+  const items = (data && data.items) || [];
+  if (!items.length) { grid.innerHTML = ""; return; }
+  grid.innerHTML = items.slice(0, 6).map(it => {
+    let dateStr = "";
+    if (it.pubDate) {
+      const d = new Date(it.pubDate);
+      if (!isNaN(d)) dateStr = d.toLocaleDateString();
+    }
+    const m = it.title.match(/^(.*?)\s+-\s+([^-]+)$/);
+    const cleanTitle = m ? m[1] : it.title;
+    const src = m ? m[2] : "Industry News";
+    return '<a class="news-card" href="' + it.link + '" target="_blank" rel="noopener">' +
+      '<span class="news-src">' + src + '</span>' +
+      '<span class="news-title">' + cleanTitle + '</span>' +
+      (dateStr ? '<span class="news-date">' + dateStr + '</span>' : "") +
+      '</a>';
+  }).join("");
+}
+async function loadNews() {
+  try {
+    const r = await fetch("news.json?t=" + Date.now());
+    if (!r.ok) throw new Error(r.status);
+    const d = await r.json();
+    renderNews(d);
+    try { localStorage.setItem("cm_news", JSON.stringify(d)); } catch (e) {}
+  } catch (e) {
+    try {
+      const c = JSON.parse(localStorage.getItem("cm_news") || "null");
+      if (c && c.items && c.items.length) { renderNews(c); return; }
+    } catch (e2) {}
+    const g = document.getElementById("news-grid");
+    if (g) g.innerHTML = "";
+  }
+}
+loadNews();
+setInterval(loadNews, 30 * 60 * 1000);
 </script>
 </body>
 </html>
