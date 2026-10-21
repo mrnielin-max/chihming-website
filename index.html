@@ -792,7 +792,7 @@ function applyLang(lang) {
   });
   try { localStorage.setItem('cm_lang', lang); } catch (e) {}
   window.__cmLang = lang;
-  if (__newsData) renderNews(__newsData);   // 新聞跟著語系切換
+  if (window.__newsData !== undefined && __newsData) renderNews(__newsData);   // 新聞跟著語系切換
 }
 
 document.querySelectorAll('.lang-btn').forEach(btn => {
@@ -822,7 +822,7 @@ document.querySelector('.btn-submit').addEventListener('click', (e) => {
 });
 
 // ── 行業時事自動更新（news.json 由 GitHub Action 每日更新，依當前語系顯示） ──
-let __newsData = null;
+var __newsData = null;
 function esc(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
 function renderNews(data) {
   __newsData = data;
