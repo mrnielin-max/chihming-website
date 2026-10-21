@@ -23,6 +23,7 @@
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
+  section[id], div[id='hero'] { scroll-margin-top: 72px; }
   body { font-family: var(--font); color: var(--ink); background: var(--bg); line-height: 1.6; -webkit-font-smoothing: antialiased; }
   a { text-decoration: none; color: inherit; }
   img { display: block; max-width: 100%; }
@@ -791,6 +792,7 @@ function applyLang(lang) {
   });
   try { localStorage.setItem('cm_lang', lang); } catch (e) {}
   window.__cmLang = lang;
+  if (__newsData) renderNews(__newsData);   // 新聞跟著語系切換
 }
 
 document.querySelectorAll('.lang-btn').forEach(btn => {
@@ -819,23 +821,33 @@ document.querySelector('.btn-submit').addEventListener('click', (e) => {
   alert(dict.alert_msg);
 });
 
-// ── 行業時事自動更新（news.json 由 GitHub Action 每日更新） ──
+// ── 行業時事自動更新（news.json 由 GitHub Action 每日更新，依當前語系顯示） ──
+let __newsData = null;
+function esc(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
 function renderNews(data) {
+  __newsData = data;
   const grid = document.getElementById("news-grid");
-  const items = (data && data.items) || [];
+  if (!grid) return;
+  const lang = window.__cmLang || "vi";
+  let items = [];
+  if (data && data.items) {
+    if (Array.isArray(data.items)) items = data.items;            // 舊格式相容
+    else items = data.items[lang] || data.items.en || [];          // 新格式：依語系
+  }
   if (!items.length) { grid.innerHTML = ""; return; }
+  const locale = { vi: "vi-VN", zh: "zh-TW", en: "en-US" }[lang] || "en-US";
   grid.innerHTML = items.slice(0, 6).map(it => {
     let dateStr = "";
     if (it.pubDate) {
       const d = new Date(it.pubDate);
-      if (!isNaN(d)) dateStr = d.toLocaleDateString();
+      if (!isNaN(d)) dateStr = d.toLocaleDateString(locale);
     }
     const m = it.title.match(/^(.*?)\s+-\s+([^-]+)$/);
     const cleanTitle = m ? m[1] : it.title;
-    const src = m ? m[2] : "Industry News";
-    return '<a class="news-card" href="' + it.link + '" target="_blank" rel="noopener">' +
-      '<span class="news-src">' + src + '</span>' +
-      '<span class="news-title">' + cleanTitle + '</span>' +
+    const src = m ? m[2] : "";
+    return '<a class="news-card" href="' + esc(it.link) + '" target="_blank" rel="noopener">' +
+      (src ? '<span class="news-src">' + esc(src) + '</span>' : "") +
+      '<span class="news-title">' + esc(cleanTitle) + '</span>' +
       (dateStr ? '<span class="news-date">' + dateStr + '</span>' : "") +
       '</a>';
   }).join("");
@@ -858,6 +870,15 @@ async function loadNews() {
 }
 loadNews();
 setInterval(loadNews, 30 * 60 * 1000);
+
+// 導覽列錨點：同頁平滑捲動，防止某些內嵌瀏覽器（WeChat）開新分頁
+document.addEventListener('click', (e) => {
+  const a = e.target.closest('nav a[href^="#"]');
+  if (!a) return;
+  const id = a.getAttribute('href').slice(1);
+  const sec = document.getElementById(id);
+  if (sec) { e.preventDefault(); sec.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+});
 </script>
 </body>
 </html>
