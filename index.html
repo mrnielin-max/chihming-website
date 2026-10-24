@@ -811,6 +811,14 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
   if (lang !== 'vi') applyLang(lang); else applyLang('vi');
 })();
 
+/* 開啟頁面一律回到最上方：清掉網址殘留的舊錨點（如 #process）並捲回頂部 */
+window.addEventListener('load', () => {
+  if (location.hash && location.hash !== '#hero') {
+    history.replaceState(null, '', location.pathname + location.search);
+  }
+  window.scrollTo({ top: 0, behavior: 'instant' in document.documentElement.style ? 'instant' : 'auto' });
+});
+
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.12 });
