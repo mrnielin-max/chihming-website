@@ -865,8 +865,13 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
   btn.addEventListener('click', () => applyLang(btn.getAttribute('data-lang')));
 });
 
-/* 初次載入：優先用上次選擇的語言，其次依瀏覽器語言 */
+/* 初次載入：SEO 爬蟲一律使用原始越南語 HTML（不做 JS 語言切換），
+   避免 Googlebot 以 en-US 渲染時把 title/H1 覆蓋成英文版，
+   導致搜「CÔNG TY TNHH CHIH MING / CTY CHIH MING」時官網無法命中。 */
 (function () {
+  const ua = navigator.userAgent || '';
+  const isBot = /bot|crawl|spider|slurp|preview|headless|lighthouse|pagespeed|facebookexternalhit|google-inspectiontool|bingpreview|yandex|baidu|sogou|duckassistbot|gptbot|claudebot|perplexitybot/i.test(ua);
+  if (isBot) return; /* 保留伺服器輸出的越南語 title/H1 原樣 */
   let lang = null;
   try { lang = localStorage.getItem('cm_lang'); } catch (e) {}
   if (!lang) {
