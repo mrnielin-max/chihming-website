@@ -10,6 +10,10 @@
   <meta name="author" content="CHIH MING Co., Ltd.">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <link rel="canonical" href="https://chihming.com.vn/">
+  <link rel="alternate" hreflang="vi" href="https://chihming.com.vn/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://chihming.com.vn/zh/">
+  <link rel="alternate" hreflang="en" href="https://chihming.com.vn/en/">
+  <link rel="alternate" hreflang="x-default" href="https://chihming.com.vn/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="CHIH MING">
   <meta property="og:locale" content="vi_VN">
@@ -371,9 +375,9 @@
       <a href="#news" data-i18n="nav_news">Tin Ngành</a>
       <a href="#contact" data-i18n="nav_contact">Liên Hệ</a>
       <div class="lang-switcher">
-        <button class="lang-btn" data-lang="vi">VI</button>
-        <button class="lang-btn" data-lang="zh">中文</button>
-        <button class="lang-btn" data-lang="en">EN</button>
+        <a class="lang-btn active" href="/">VI</a>
+        <a class="lang-btn" href="/zh/">中文</a>
+        <a class="lang-btn" href="/en/">EN</a>
       </div>
       <a href="#contact" class="nav-cta" data-i18n="nav_cta">Báo Giá Ngay</a>
     </div>
@@ -861,9 +865,7 @@ function applyLang(lang) {
   if (window.__newsData !== undefined && __newsData) renderNews(__newsData);   // 新聞跟著語系切換
 }
 
-document.querySelectorAll('.lang-btn').forEach(btn => {
-  btn.addEventListener('click', () => applyLang(btn.getAttribute('data-lang')));
-});
+
 
 /* 初次載入：SEO 爬蟲一律使用原始越南語 HTML（不做 JS 語言切換），
    避免 Googlebot 以 en-US 渲染時把 title/H1 覆蓋成英文版，
@@ -878,7 +880,9 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
     const bl = (navigator.language || 'vi').toLowerCase();
     lang = bl.startsWith('zh') ? 'zh' : (bl.startsWith('en') ? 'en' : 'vi');
   }
-  if (lang !== 'vi') applyLang(lang); else applyLang('vi');
+  if (lang === 'zh') { location.replace('/zh/'); return; }
+  if (lang === 'en') { location.replace('/en/'); return; }
+  applyLang('vi');
 })();
 
 /* 開啟頁面一律回到最上方：清掉網址殘留的舊錨點（如 #process）並捲回頂部 */
@@ -934,7 +938,7 @@ function renderNews(data) {
 }
 async function loadNews() {
   try {
-    const r = await fetch("news.json?t=" + Date.now());
+    const r = await fetch("/news.json?t=" + Date.now());
     if (!r.ok) throw new Error(r.status);
     const d = await r.json();
     renderNews(d);
